@@ -77,7 +77,7 @@ class MapViewController: UIViewController, ARDataSource {
                 let marker = GMSMarker()
                 marker.position = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
                 marker.title = book.title
-                marker.snippet = book.author
+                marker.snippet = book.address
                 marker.map = self.mapView
                 
             })

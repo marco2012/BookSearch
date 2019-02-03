@@ -52,12 +52,18 @@ class BooksTableViewController: UIViewController, UITableViewDataSource, UITable
         
         let book = Book(isbn: x["isbn"] as! String, title: x["title"] as! String, author: x["author"] as! String, book_description: x["book_description"] as! String, pages: x["pages"] as! Int, rating: x["rating"] as! Double, image_link: x["image_link"] as! String, publisher: x["publisher"] as! String, publishedDate: x["publishedDate"] as! String, categories: x["categories"] as! String, sale: x["sale"] as! String, address: x["address"] as? String, latitude: x["latitude"] as? Double, longitude: x["longitude"] as? Double, seller: x["seller"] as? String)
         
-
+    
         return book
         
       }
         self.books = models
         self.documents = snapshot.documents
+        
+        //remove duplicates in array
+        self.books = Array(Set(self.books))
+        //sort array
+        self.books.sort(by: { $0.title > $1.title })
+
         
         //save to userdefaults
         let userDefaults = UserDefaults.standard
@@ -75,6 +81,7 @@ class BooksTableViewController: UIViewController, UITableViewDataSource, UITable
       self.tableView.reloadData()
     }
   }
+    
 
   fileprivate func stopObserving() {
     listener?.remove()

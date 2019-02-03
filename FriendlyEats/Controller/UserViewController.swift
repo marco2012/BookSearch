@@ -30,8 +30,8 @@ class UserViewController: FormViewController {
             let books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
             books_purchased_titles = books_purchased.map{$0.title}
         }
-        self.form.removeAll()
-        setupForm()
+//        self.form.removeAll()
+//        setupForm()
     }
     
     func setupForm(){
@@ -74,7 +74,10 @@ class UserViewController: FormViewController {
                         }.onPresent { from, to in
                             to.dismissOnSelection = false
                             to.dismissOnChange = false
-                }
+                            
+                        }.cellUpdate { cell, row in
+                            row.options = self.books_purchased_titles
+                        }
                 
                 
                 form +++ Section("Manage account")
@@ -151,6 +154,7 @@ class UserViewController: FormViewController {
                                             break
                                         }
                                     }
+                                    
                                 }
                             }
                             

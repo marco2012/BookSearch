@@ -198,6 +198,9 @@ BarcodeScannerCodeDelegate, BarcodeScannerDismissalDelegate, BarcodeScannerError
                 }
                 .onCellSelection { [weak self] (cell, row) in
                     
+                    book.latitude = 0.0
+                    book.longitude = 0.0
+                    
                     ViewControllerUtils().showActivityIndicator(uiView: self!.view)
                     
                     //ASYNC Operation
@@ -208,11 +211,7 @@ BarcodeScannerCodeDelegate, BarcodeScannerDismissalDelegate, BarcodeScannerError
                         
                         if address_value == "nil" {
                             ViewControllerUtils().hideActivityIndicator(uiView: self!.view)
-                            //display alert
-                            let alert = UIAlertController(title: nil, message: "Please provide an address", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default)
-                            alert.addAction(okAction)
-                            self!.present(alert, animated: true)
+                            self!.alert(title: "Missing address")
                         } else {
                             let address = address_value!.components(separatedBy: "\"")[1]
                             book.address = address
@@ -223,30 +222,20 @@ BarcodeScannerCodeDelegate, BarcodeScannerDismissalDelegate, BarcodeScannerError
                         
                         if image_data == nil {
                             ViewControllerUtils().hideActivityIndicator(uiView: self!.view)
-                            //display alert
-                            let alert = UIAlertController(title: nil, message: "Please provide an image", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default)
-                            alert.addAction(okAction)
-                            self!.present(alert, animated: true)
+                            self!.alert(title: "Take a picture of the book")
                         } else {
                             let jpgImage = UIImageJPEGRepresentation(image_data!, 0.6)
                             UserDefaults.standard.set(jpgImage, forKey: book.isbn)
-
-//                            book.image_link = imageStr
                         }
                         
+                        if address_value != "nil" && image_data != nil {
+                            //add book to library
+                            self?.saveBookToFirebase(book: book)
+                        }
                         
-                        book.latitude = 0.0
-                        book.longitude = 0.0
-                        
-                        //add book to library
-                        self?.saveBookToFirebase(book: book)
                     }
         }
         
-        // Enables the navigation accessory and stops navigation when a disabled row is encountered
-        //navigationOptions = RowNavigationOptions.Disabled
-        // Enables smooth scrolling on navigation to off-screen rows
         animateScroll = true
         
     }

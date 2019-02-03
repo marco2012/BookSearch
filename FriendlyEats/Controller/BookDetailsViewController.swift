@@ -8,17 +8,19 @@
 
 import Eureka
 import ViewRow
+import FirebaseFirestore
+import MessageUI
 
-class BookDetailsViewController: FormViewController {
+class BookDetailsViewController: FormViewController, MFMailComposeViewControllerDelegate {
     
     var book : Book?
-
+    var db: Firestore!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = book?.title
-        
-        
+        db = Firestore.firestore()
         
         makeForm()
     }
@@ -45,6 +47,30 @@ class BookDetailsViewController: FormViewController {
             <<< LabelRow () {
                 $0.title = "Seller"
                 $0.value = book!.seller
+                }.cellUpdate{ cell, row in
+                    cell.detailTextLabel?.textColor = .blue
+                }.onCellSelection { [weak self] (cell, row) in
+                    
+                    self?.presentAlertWithTitle(title: "Send email to seller?", message: "", options: "Cancel","Send"){ (option) in
+                        switch(option) {
+                        case 0:
+                            self?.dismiss(animated: true, completion: nil)
+                            break
+                        default:
+                            
+                            //open mail
+                            if MFMailComposeViewController.canSendMail() {
+                                let mail = MFMailComposeViewController()
+                                mail.mailComposeDelegate = self!
+                                mail.setToRecipients([self!.book!.seller!])
+                                mail.setSubject("Question about \(self!.book!.title)")
+                                //mail.setMessageBody("<p>Hello, I have a question about <i>\(self!.book!.title)</i> by  </p>", isHTML: true)
+                                self!.present(mail, animated: true)
+                            }
+                            
+                        }
+                    }
+                    
             }
             
             <<< ViewRow<UIImageView>()
@@ -140,7 +166,7 @@ class BookDetailsViewController: FormViewController {
             }
             
             
-            +++ Section()
+            +++ Section("Actions")
             
             <<< ButtonRow() { (row: ButtonRow) -> Void in
                 row.title = "Directions"
@@ -154,7 +180,7 @@ class BookDetailsViewController: FormViewController {
                     UIApplication.shared.open(url!, options: [:], completionHandler: nil)
             }
             
-            +++ Section()
+
             
             <<< ButtonRow() { (row: ButtonRow) -> Void in
                 row.title = "Purchase"
@@ -171,11 +197,7 @@ class BookDetailsViewController: FormViewController {
       
                     //add current book if not already there
                     if (books_purchased.contains(where: {$0.isbn == self!.book!.isbn})) {
-                        //display alert
-                        let alert = UIAlertController(title: nil, message: "Book already purchased", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default)
-                        alert.addAction(okAction)
-                        self!.present(alert, animated: true)
+                        self!.alert(title: "Book already purchased")
                     } else {
                         books_purchased.append(self!.book!)
                     }
@@ -185,13 +207,53 @@ class BookDetailsViewController: FormViewController {
                     userDefaults.set(encodedData, forKey: "books_purchased")
                     userDefaults.synchronize()
                     
-                    //display alert
-                    let alert = UIAlertController(title: nil, message: "Item Purchased!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default)
-                    alert.addAction(okAction)
-                    self!.present(alert, animated: true)
+                    self!.alert(title: "Item Purchased")
                     
             }
+        
+
+            <<< ButtonRow() {
+                $0.title = "Delete"
+                }.cellSetup() {cell, row in
+                    //cell.backgroundColor = UIColor.red
+                    cell.tintColor = UIColor.red
+                }.onCellSelection { [weak self] (cell, row) in
+                    //https://stackoverflow.com/a/51793963/1440037
+                    
+                    // Create the alert controller
+                    let alertController = UIAlertController(title: "Do you want to delete this book?", message: "", preferredStyle: .alert)
+                    
+                    // Create the actions
+                    let okAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive) {
+                        UIAlertAction in
+                        NSLog("OK Pressed")
+                        
+                        self!.db.collection("books").whereField("isbn", isEqualTo: self!.book?.isbn as Any).getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for document in querySnapshot!.documents {
+                                    document.reference.delete()
+                                    self!.alert(title: "Deleted")
+                                }
+                            }
+                        }
+                        self!.navigationController?.popViewController(animated: true) //go back
+                        
+                    }
+                    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
+                        UIAlertAction in
+                        NSLog("Cancel Pressed")
+                    }
+                    
+                    // Add the actions
+                    alertController.addAction(okAction)
+                    alertController.addAction(cancelAction)
+                    
+                    // Present the controller
+                    self!.present(alertController, animated: true, completion: nil)
+                    
+                }
         
         
         // Enables the navigation accessory and stops navigation when a disabled row is encountered
@@ -199,6 +261,11 @@ class BookDetailsViewController: FormViewController {
         // Enables smooth scrolling on navigation to off-screen rows
         animateScroll = true
         
+    }
+    
+    //dismiss email
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
     
 
