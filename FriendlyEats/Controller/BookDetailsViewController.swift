@@ -154,7 +154,7 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
             <<< IntRow () {
                 $0.title = "Pages"
                 $0.value = book!.pages
-                $0.disabled = false
+                $0.disabled = true
             }
             
             <<< DecimalRow() {
@@ -162,7 +162,7 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                 $0.value = book!.rating
                 $0.formatter = DecimalFormatter()
                 $0.useFormatterDuringInput = true
-                $0.disabled = false
+                $0.disabled = true
             }
             
             

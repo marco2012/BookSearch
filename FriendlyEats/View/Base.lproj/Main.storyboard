@@ -52,8 +52,11 @@
                                                     <color key="textColor" white="0.0" alpha="0.38" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Book name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPa-m8-4Ol">
-                                                    <rect key="frame" x="116" y="11" width="212" height="32"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPa-m8-4Ol">
+                                                    <rect key="frame" x="116" y="7" width="212" height="19.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="212" id="tqL-IH-j4S"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.0" alpha="0.87" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -71,7 +74,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TKh-Sa-3TN" customClass="ImmutableStarsView" customModule="FriendlyEats" customModuleProvider="target">
-                                                    <rect key="frame" x="116" y="51" width="100" height="20"/>
+                                                    <rect key="frame" x="116" y="56" width="100" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="13K-Xd-IgT"/>
@@ -81,7 +84,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="sZS-jl-RH4" firstAttribute="leading" secondItem="EfY-Pa-M4b" secondAttribute="trailing" constant="4" id="0LF-S3-2Ij"/>
-                                                <constraint firstItem="Yfl-Cs-75Y" firstAttribute="top" secondItem="hPa-m8-4Ol" secondAttribute="top" id="B8T-JG-4Yr"/>
+                                                <constraint firstItem="Yfl-Cs-75Y" firstAttribute="top" secondItem="hPa-m8-4Ol" secondAttribute="top" constant="4" id="B8T-JG-4Yr"/>
                                                 <constraint firstItem="ybB-mI-Ytc" firstAttribute="leading" secondItem="sZS-jl-RH4" secondAttribute="trailing" constant="4" id="EW9-dk-N4O"/>
                                                 <constraint firstItem="EfY-Pa-M4b" firstAttribute="leading" secondItem="cKd-hu-eLf" secondAttribute="trailing" constant="8" id="Ubc-ts-Msp"/>
                                                 <constraint firstItem="hPa-m8-4Ol" firstAttribute="leading" secondItem="cKd-hu-eLf" secondAttribute="trailing" constant="8" id="W7H-Vb-YFO"/>
@@ -89,10 +92,10 @@
                                                 <constraint firstItem="ybB-mI-Ytc" firstAttribute="centerY" secondItem="EfY-Pa-M4b" secondAttribute="centerY" id="ZEA-JB-h3x"/>
                                                 <constraint firstItem="cKd-hu-eLf" firstAttribute="top" secondItem="r68-G7-Z5a" secondAttribute="top" constant="5" id="aDI-48-eIt"/>
                                                 <constraint firstItem="cKd-hu-eLf" firstAttribute="leading" secondItem="r68-G7-Z5a" secondAttribute="leading" constant="12" id="egO-wp-woc"/>
-                                                <constraint firstItem="hPa-m8-4Ol" firstAttribute="top" secondItem="r68-G7-Z5a" secondAttribute="topMargin" id="fCR-Gj-eob"/>
+                                                <constraint firstItem="hPa-m8-4Ol" firstAttribute="top" secondItem="r68-G7-Z5a" secondAttribute="topMargin" constant="-4" id="fCR-Gj-eob"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Yfl-Cs-75Y" secondAttribute="trailing" constant="8" id="gnG-UM-bji"/>
                                                 <constraint firstItem="EfY-Pa-M4b" firstAttribute="bottom" secondItem="cKd-hu-eLf" secondAttribute="bottom" constant="-5" id="klt-3U-oWd"/>
-                                                <constraint firstItem="TKh-Sa-3TN" firstAttribute="top" secondItem="hPa-m8-4Ol" secondAttribute="bottom" constant="8" id="nyT-c0-maw"/>
+                                                <constraint firstItem="TKh-Sa-3TN" firstAttribute="top" secondItem="hPa-m8-4Ol" secondAttribute="bottom" constant="3" id="nyT-c0-maw"/>
                                                 <constraint firstItem="TKh-Sa-3TN" firstAttribute="leading" secondItem="cKd-hu-eLf" secondAttribute="trailing" constant="8" id="weE-Hc-Wnf"/>
                                                 <constraint firstItem="sZS-jl-RH4" firstAttribute="centerY" secondItem="EfY-Pa-M4b" secondAttribute="centerY" id="yBr-Eh-Md1"/>
                                             </constraints>

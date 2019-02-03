@@ -121,15 +121,7 @@ class UserViewController: FormViewController {
                                 print(error)
                             }
                             
-                            self?.presentAlertWithTitle(title: "Sent", message: "Email sent", options: "OK"){ (option) in
-                                switch(option) {
-                                case 0:
-                                    self?.dismiss(animated: true, completion: nil)
-                                    break
-                                default:
-                                    break
-                                }
-                            }
+                            self?.alert(title: "Email sent")
                             
                     }
                     
@@ -143,6 +135,7 @@ class UserViewController: FormViewController {
                                 if let error = error {
                                     // An error happened.
                                     print(error)
+                                    self?.alert(title: "Log in again to perform this action")
                                 } else {
                                     // Account deleted.
                                     self?.presentAlertWithTitle(title: "Done", message: "Account deleted", options: "OK"){ (option) in
