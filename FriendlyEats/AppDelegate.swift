@@ -23,7 +23,7 @@ import GooglePlaces
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  var shortcutItemToProcess: UIApplicationShortcutItem?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     FirebaseApp.configure()
@@ -31,8 +31,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //maps
     GMSServices.provideAPIKey("AIzaSyBUk8EzISX7cRF05orUf_VSdcfMGPKJs2U")
     GMSPlacesClient.provideAPIKey("AIzaSyBUk8EzISX7cRF05orUf_VSdcfMGPKJs2U")
+    
+    //quick actions
+    // If launchOptions contains the appropriate launch options key, a Home screen quick action
+    // is responsible for launching the app. Store the action for processing once the app has
+    // completed initialization.
+    if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
+        shortcutItemToProcess = shortcutItem
+    }
+    
     return true
   }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        // Alternatively, a shortcut item may be passed in through this delegate method if the app was
+        // still in memory when the Home screen quick action was used. Again, store it for processing.
+        shortcutItemToProcess = shortcutItem
+    }
+    
+    //manage quick actions
+    //https://developer.apple.com/documentation/uikit/peek_and_pop/add_home_screen_quick_actions
+    //https://stackoverflow.com/a/46372440/1440037
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Is there a shortcut item that has not yet been processed?
+        if let shortcutItem = shortcutItemToProcess {
+            
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "tabBar")
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = vc
+            let myTabBar = self.window?.rootViewController as! UITabBarController
+            
+            switch shortcutItem.type {
+            case "HomeAction":
+                myTabBar.selectedIndex = 0
+            case "ScanAction":
+                myTabBar.selectedIndex = 1
+            case "MapAction":
+                myTabBar.selectedIndex = 2
+            case "UserAction":
+                myTabBar.selectedIndex = 3
+                default:
+                myTabBar.selectedIndex = 0
+            }
+                        
+            self.window?.makeKeyAndVisible()
+            
+            // Reset the shorcut item so it's never processed twice.
+            shortcutItemToProcess = nil
+        }
+    }
 
 }
 

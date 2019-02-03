@@ -51,5 +51,48 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>HomeAction</string>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeHome</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Home</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>List available books</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>ScanAction</string>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeSearch</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Scan</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>Scan a barcode</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>MapAction</string>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeLocation</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Map</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>View books on a map</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>UserAction</string>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeContact</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>User</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>User profile</string>
+		</dict>
+	</array>
 </dict>
 </plist>
