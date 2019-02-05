@@ -93,8 +93,8 @@ class UserViewController: FormViewController {
                             DispatchQueue.main.async {
                                 try? Auth.auth().signOut()
                                 ViewControllerUtils().hideActivityIndicator(uiView: self!.view)
+                                self!.present(FUIAuth.defaultAuthUI()!.authViewController(), animated: true, completion: nil)
                             }
-                            
                             
                     }
                     
