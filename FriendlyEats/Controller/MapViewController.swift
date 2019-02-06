@@ -61,6 +61,10 @@ class MapViewController: UIViewController, ARDataSource {
         listLikelyPlaces()
         
         //read
+//        if let decoded_purchased  = UserDefaults.standard.object(forKey: "books_purchased") as? Data {
+//            let books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
+//            books_purchased_titles = books_purchased.map{$0.title}
+//        }
         let decoded  = UserDefaults.standard.object(forKey: "books") as! Data
         books = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [Book]
         

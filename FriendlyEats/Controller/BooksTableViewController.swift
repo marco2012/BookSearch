@@ -112,11 +112,21 @@ class BooksTableViewController: UIViewController, UITableViewDataSource, UITable
     query = baseQuery()
     stackViewHeightConstraint.constant = 0
     activeFiltersStackView.isHidden = true
-
-//    self.navigationController?.navigationBar.barStyle = .black
     
     self.tableView.register(FriendlyEats.RestaurantTableViewCell.self, forCellReuseIdentifier: "Cell")
 
+    //******TEST******
+//    BackendAPI().purchaseTEST()
+//    BackendAPI().uploadImage2(isbn: "123", userImage: UIImage(named: "book")!) {
+//        (result) in
+//        print(result)
+//    }
+//    BackendAPI().sendImage(isbn: "123", image: UIImage(named: "book")!)
+//    BackendAPI().getImage(isbn: "123 ") {
+//        (response) in
+//        print(response)
+//    }
+    
   }
     
   override func viewWillAppear(_ animated: Bool) {
@@ -201,9 +211,20 @@ class RestaurantTableViewCell: UITableViewCell {
     starsView.rating = Int(book.rating.rounded())
     priceLabel.text = ""
     
-    let retrievedImage = UserDefaults.standard.object(forKey: book.isbn) as AnyObject
-    thumbnailView.image = UIImage(data: (retrievedImage as! NSData) as Data)
     
+    if let retrievedImage = UserDefaults.standard.object(forKey: book.isbn)  {
+        let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
+        self.thumbnailView.image = storedImage!.rotate(radians: .pi/2)
+    } else {
+        BackendAPI().getImage(isbn: book.isbn) { (image) in
+            let jpgImage = UIImageJPEGRepresentation(image, 0.3)
+            UserDefaults.standard.set(jpgImage, forKey: book.isbn)
+            self.thumbnailView.image = image.rotate(radians: .pi/2)
+        }
+    }
+
+    
+
   }
 
   override func prepareForReuse() {

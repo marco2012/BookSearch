@@ -9,6 +9,7 @@
 import Eureka
 import ViewRow
 import FirebaseFirestore
+import FirebaseUI
 import MessageUI
 
 class BookDetailsViewController: FormViewController, MFMailComposeViewControllerDelegate {
@@ -80,9 +81,27 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                     cell.contentView.addSubview(cell.view!)
                     
                     //  Get something to display
-                    let retrievedImage = UserDefaults.standard.object(forKey: self.book!.isbn) as AnyObject
-                    let image = UIImage(data: (retrievedImage as! NSData) as Data)
-                    cell.view!.image = image
+//                    let retrievedImage = UserDefaults.standard.object(forKey: self.book!.isbn) as AnyObject
+//                    let image = UIImage(data: (retrievedImage as! NSData) as Data)
+                    
+                    
+                    if let retrievedImage = UserDefaults.standard.object(forKey: self.book!.isbn)  {
+                        let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
+                        cell.view!.image = storedImage!.rotate(radians: .pi/2)
+                    } else {
+                        BackendAPI().getImage(isbn: self.book!.isbn) { (image) in
+                            let jpgImage = UIImageJPEGRepresentation(image, 0.3)
+                            UserDefaults.standard.set(jpgImage, forKey: self.book!.isbn)
+                            cell.view!.image = image.rotate(radians: .pi/2)
+                        }
+                    }
+                    
+//                    BackendAPI().getImage(isbn: self.book!.isbn) { (image) in
+//                        print("DETAILS")
+//                        print(image)
+//                        cell.view!.image = image
+//                    }
+//                    cell.view!.image = image
                     cell.view!.contentMode = UIViewContentMode.scaleAspectFit
                     
                     //  Make the image view occupy the entire row:
@@ -187,25 +206,33 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                 }
                 .onCellSelection { [weak self] (cell, row) in
                     
-                    let userDefaults = UserDefaults.standard
-                    var books_purchased = [Book]()
+                    //ASYNC Operation
+                    DispatchQueue.main.async {
                     
-                    //read from userdefaults
-                    if let decoded_purchased  = UserDefaults.standard.object(forKey: "books_purchased") as? Data {
-                        books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
+//                        let userDefaults = UserDefaults.standard
+//                        var books_purchased = [Book]()
+//
+//                        //read from userdefaults
+//                        if let decoded_purchased  = UserDefaults.standard.object(forKey: "books_purchased") as? Data {
+//                            books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
+//                        }
+//
+//                        //add current book if not already there
+//                        if (books_purchased.contains(where: {$0.isbn == self!.book!.isbn})) {
+//                            self!.alert(title: "Book already purchased")
+//                        } else {
+//                            books_purchased.append(self!.book!)
+//                        }
+//
+//                        //save to userdefaults
+//                        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: books_purchased)
+//                        userDefaults.set(encodedData, forKey: "books_purchased")
+//                        userDefaults.synchronize()
+                        
+                        //BACKEND
+                        BackendAPI().purchase(book: self!.book!)
+                        
                     }
-      
-                    //add current book if not already there
-                    if (books_purchased.contains(where: {$0.isbn == self!.book!.isbn})) {
-                        self!.alert(title: "Book already purchased")
-                    } else {
-                        books_purchased.append(self!.book!)
-                    }
-                    
-                    //save to userdefaults
-                    let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: books_purchased)
-                    userDefaults.set(encodedData, forKey: "books_purchased")
-                    userDefaults.synchronize()
                     
                     self!.alert(title: "Item Purchased")
                     
@@ -228,6 +255,10 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                         UIAlertAction in
                         NSLog("OK Pressed")
                         
+                        if self!.book?.seller != Auth.auth().currentUser!.email {
+                            self!.alert(message: "Only the seller can delete this book", title: "You are not the seller")
+                        } else {
+                        
                         self!.db.collection("books").whereField("isbn", isEqualTo: self!.book?.isbn as Any).getDocuments() { (querySnapshot, err) in
                             if let err = err {
                                 print("Error getting documents: \(err)")
@@ -239,6 +270,8 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                             }
                         }
                         self!.navigationController?.popViewController(animated: true) //go back
+                            
+                        }
                         
                     }
                     let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {

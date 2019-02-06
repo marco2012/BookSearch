@@ -38,6 +38,7 @@
 		A9A127942199F5EE0099976E /* TestAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A127932199F5EE0099976E /* TestAnnotationView.swift */; };
 		A9AC5711218B5E1A002B1075 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AC5710218B5E1A002B1075 /* Book.swift */; };
 		A9C0AF1F21871497001F71D5 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0AF1E21871497001F71D5 /* ScanViewController.swift */; };
+		A9F21AD02209D20B00E87A8C /* BackendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F21ACF2209D20B00E87A8C /* BackendAPI.swift */; };
 		B38D56A2CD2221DB8282E0CA /* Pods_FriendlyEats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01F37BD708B954CADBD05B /* Pods_FriendlyEats.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,7 @@
 		A9A127932199F5EE0099976E /* TestAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnnotationView.swift; sourceTree = "<group>"; };
 		A9AC5710218B5E1A002B1075 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		A9C0AF1E21871497001F71D5 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+		A9F21ACF2209D20B00E87A8C /* BackendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendAPI.swift; sourceTree = "<group>"; };
 		D24E3706AAB3A2E42AC77143 /* Pods-FriendlyEatsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendlyEatsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendlyEatsTests/Pods-FriendlyEatsTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 				8D9BBC301EE2200900194E9A /* AppDelegate.swift */,
 				A9851D67218DC1A700CEC73C /* Extensions.swift */,
 				A96EECDE21907D2F0019D841 /* GoogleAPI.swift */,
+				A9F21ACF2209D20B00E87A8C /* BackendAPI.swift */,
 				A9AC5714218B7FD3002B1075 /* Controller */,
 				A9AC5712218B7FB0002B1075 /* Model */,
 				A9AC5713218B7FBD002B1075 /* View */,
@@ -488,6 +491,7 @@
 				A9AC5711218B5E1A002B1075 /* Book.swift in Sources */,
 				A91F57022193236C0072EF85 /* GooglePlacesRow.swift in Sources */,
 				A9C0AF1F21871497001F71D5 /* ScanViewController.swift in Sources */,
+				A9F21AD02209D20B00E87A8C /* BackendAPI.swift in Sources */,
 				A91F57012193236C0072EF85 /* GooglePlacesCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

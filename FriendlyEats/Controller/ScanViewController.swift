@@ -224,13 +224,15 @@ BarcodeScannerCodeDelegate, BarcodeScannerDismissalDelegate, BarcodeScannerError
                             ViewControllerUtils().hideActivityIndicator(uiView: self!.view)
                             self!.alert(title: "Take a picture of the book")
                         } else {
-                            let jpgImage = UIImageJPEGRepresentation(image_data!, 0.6)
-                            UserDefaults.standard.set(jpgImage, forKey: book.isbn)
+//                            let jpgImage = UIImageJPEGRepresentation(image_data!, 0.6)
+//                            UserDefaults.standard.set(jpgImage, forKey: book.isbn)
+                            print(image_data)
+                            BackendAPI().sendImage(isbn: book.isbn, image: image_data!)
                         }
                         
                         if address_value != "nil" && image_data != nil {
                             //add book to library
-                            self?.saveBookToFirebase(book: book)
+                           self?.saveBookToFirebase(book: book)
                         }
                         
                     }

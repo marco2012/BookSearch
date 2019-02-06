@@ -32,7 +32,7 @@ class Book: NSObject, NSCoding {
         self.author = author
         self.book_description = book_description
         self.pages = pages
-        self.rating = rating
+        self.rating = rating == 0.0 ? Double.random(in: 1.0 ..< 5.0) : rating   //if rating from API is 0 choose random number
         self.image_link = image_link
         self.publisher = publisher
         self.publishedDate = publishedDate
@@ -70,7 +70,7 @@ class Book: NSObject, NSCoding {
         let author = aDecoder.decodeObject(forKey: "author") as? String
         let book_description = aDecoder.decodeObject(forKey: "book_description") as? String
         let pages = aDecoder.decodeInteger(forKey: "pages")
-        let rating = aDecoder.decodeObject(forKey: "rating") as? Double ?? Double.random(in: 0.0 ..< 5.0)
+        let rating = aDecoder.decodeObject(forKey: "rating") as? Double ?? Double.random(in: 1.0 ..< 5.0)
         let image_link = aDecoder.decodeObject(forKey: "image_link") as? String
         let publisher = aDecoder.decodeObject(forKey: "publisher") as? String
         let publishedDate = aDecoder.decodeObject(forKey: "publishedDate") as? String

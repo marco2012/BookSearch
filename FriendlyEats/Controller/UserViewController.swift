@@ -17,19 +17,33 @@ class UserViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let decoded_purchased  = UserDefaults.standard.object(forKey: "books_purchased") as? Data {
-            let books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
-            books_purchased_titles = books_purchased.map{$0.title}
+//        if let decoded_purchased  = UserDefaults.standard.object(forKey: "books_purchased") as? Data {
+//            let books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
+//            books_purchased_titles = books_purchased.map{$0.title}
+//        }
+        
+        BackendAPI().mybooks(user:(Auth.auth().currentUser?.email)!) {
+            (purchases) in
+            self.books_purchased_titles = purchases
         }
+        print(books_purchased_titles)
+        
         setupForm()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if let decoded_purchased  = UserDefaults.standard.object(forKey: "books_purchased") as? Data {
-            let books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
-            books_purchased_titles = books_purchased.map{$0.title}
+//        if let decoded_purchased  = UserDefaults.standard.object(forKey: "books_purchased") as? Data {
+//            let books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
+//            books_purchased_titles = books_purchased.map{$0.title}
+//        }
+        
+        BackendAPI().mybooks(user:(Auth.auth().currentUser?.email)!) {
+            (purchases) in
+            self.books_purchased_titles = purchases
         }
+        print(books_purchased_titles)
+        
 //        self.form.removeAll()
 //        setupForm()
     }
