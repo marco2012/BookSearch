@@ -80,28 +80,19 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                     cell.view = UIImageView()
                     cell.contentView.addSubview(cell.view!)
                     
-                    //  Get something to display
-//                    let retrievedImage = UserDefaults.standard.object(forKey: self.book!.isbn) as AnyObject
-//                    let image = UIImage(data: (retrievedImage as! NSData) as Data)
-                    
-                    
+
+                    cell.view!.transform = CGAffineTransform(rotationAngle: .pi/2)  //rotate image 90
                     if let retrievedImage = UserDefaults.standard.object(forKey: self.book!.isbn)  {
                         let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
-                        cell.view!.image = storedImage!.rotate(radians: .pi/2)
+                        cell.view!.image = storedImage!
                     } else {
                         BackendAPI().getImage(isbn: self.book!.isbn) { (image) in
                             let jpgImage = UIImageJPEGRepresentation(image, 0.3)
                             UserDefaults.standard.set(jpgImage, forKey: self.book!.isbn)
-                            cell.view!.image = image.rotate(radians: .pi/2)
+                            cell.view!.image = image
                         }
                     }
-                    
-//                    BackendAPI().getImage(isbn: self.book!.isbn) { (image) in
-//                        print("DETAILS")
-//                        print(image)
-//                        cell.view!.image = image
-//                    }
-//                    cell.view!.image = image
+                
                     cell.view!.contentMode = UIViewContentMode.scaleAspectFit
                     
                     //  Make the image view occupy the entire row:

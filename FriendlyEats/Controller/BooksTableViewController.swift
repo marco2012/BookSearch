@@ -211,20 +211,19 @@ class RestaurantTableViewCell: UITableViewCell {
     starsView.rating = Int(book.rating.rounded())
     priceLabel.text = ""
     
-    
+    self.thumbnailView.transform = CGAffineTransform(rotationAngle: .pi/2) //rotate image 90
     if let retrievedImage = UserDefaults.standard.object(forKey: book.isbn)  {
         let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
-        self.thumbnailView.image = storedImage!.rotate(radians: .pi/2)
+        self.thumbnailView.image = storedImage!
     } else {
         BackendAPI().getImage(isbn: book.isbn) { (image) in
             let jpgImage = UIImageJPEGRepresentation(image, 0.3)
             UserDefaults.standard.set(jpgImage, forKey: book.isbn)
-            self.thumbnailView.image = image.rotate(radians: .pi/2)
+            self.thumbnailView.image = image
         }
     }
 
     
-
   }
 
   override func prepareForReuse() {

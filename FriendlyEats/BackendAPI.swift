@@ -16,31 +16,16 @@ class BackendAPI {
     let user = "bookshare"
     let password = "martagermano"
     
-
-    func purchaseTEST(){
-        let credentialData = "\(user):\(password)".data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
-        let base64Credentials = credentialData.base64EncodedString()
-        let headers = [
-            "Authorization": "Basic \(base64Credentials)",
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        ]
-        
-            let parameters: Parameters = [
-                "email": "lollo@gmail.com",
-                "title": "Io so de santdo"
-            ]
-        Alamofire.request(IP+"/purchase", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-    }
     
     func purchase(book:Book){
-        let credentialData = "\(user):\(password)".data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
-        let base64Credentials = credentialData.base64EncodedString()
-        let headers = [
-            "Authorization": "Basic \(base64Credentials)",
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        ]
+        
+//        let credentialData = "\(user):\(password)".data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
+//        let base64Credentials = credentialData.base64EncodedString()
+//        let headers = [
+//            "Authorization": "Basic \(base64Credentials)",
+//            "Accept": "application/json",
+//            "Content-Type": "application/json"
+//        ]
         
         let parameters: Parameters = [
             "email": book.seller!,
@@ -52,19 +37,10 @@ class BackendAPI {
 
     func mybooks(user:String, completionHandler: @escaping (([String]) -> Void) ){
         
-        let credentialData = "\(user):\(password)".data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
-        let base64Credentials = credentialData.base64EncodedString()
-        let headers = [
-            "Authorization": "Basic \(base64Credentials)",
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        ]
-        
         let parameters: Parameters = [
             "email": user
         ]
         
-        // Fetch Request
         Alamofire.request(IP+"/mybooks", method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -85,14 +61,6 @@ class BackendAPI {
     
     func sendImage(isbn: String, image:UIImage){
         
-        let credentialData = "\(user):\(password)".data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
-        let base64Credentials = credentialData.base64EncodedString()
-        let headers = [
-            "Authorization": "Basic \(base64Credentials)",
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        ]
-        
         let imageData:Data = UIImagePNGRepresentation(image)!
         let strBase64 = imageData.base64EncodedString(options: .endLineWithLineFeed)
         print(strBase64.prefix(20))
@@ -106,14 +74,6 @@ class BackendAPI {
     }
     
     func getImage(isbn:String, completionHandler: @escaping ((UIImage) -> Void) ){
-        
-        let credentialData = "\(user):\(password)".data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
-        let base64Credentials = credentialData.base64EncodedString()
-        let headers = [
-            "Authorization": "Basic \(base64Credentials)",
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        ]
         
         let parameters: Parameters = [
             "isbn"    : isbn
@@ -135,18 +95,13 @@ class BackendAPI {
                         }
                     }
 
-                    completionHandler(decodedimage) //return
+                    completionHandler(decodedimage)
                 }
                 else {
                     debugPrint("HTTP Request failed: \(String(describing: response.result.error))")
                 }
-        }
-    
-    
-    
-        
+            }
     }
-    
     
 
 }

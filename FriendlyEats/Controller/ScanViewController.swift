@@ -226,7 +226,7 @@ BarcodeScannerCodeDelegate, BarcodeScannerDismissalDelegate, BarcodeScannerError
                         } else {
 //                            let jpgImage = UIImageJPEGRepresentation(image_data!, 0.6)
 //                            UserDefaults.standard.set(jpgImage, forKey: book.isbn)
-                            print(image_data)
+//                            print(image_data)
                             BackendAPI().sendImage(isbn: book.isbn, image: image_data!)
                         }
                         

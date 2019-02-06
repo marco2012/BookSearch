@@ -32,7 +32,7 @@ class Book: NSObject, NSCoding {
         self.author = author
         self.book_description = book_description
         self.pages = pages
-        self.rating = rating == 0.0 ? Double.random(in: 1.0 ..< 5.0) : rating   //if rating from API is 0 choose random number
+        self.rating = rating == 0.0 ? Double.random(in: 2.0 ..< 5.0) : rating   //if rating from API is 0 choose random number
         self.image_link = image_link
         self.publisher = publisher
         self.publishedDate = publishedDate

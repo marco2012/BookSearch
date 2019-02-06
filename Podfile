@@ -20,6 +20,7 @@ target 'FriendlyEats' do
   pod 'GooglePlaces'
   pod 'HDAugmentedReality', '~> 2.3'
   pod 'ViewRow', :git => 'https://github.com/EurekaCommunity/ViewRow'
+  pod 'SwiftGifOrigin', '~> 1.7.0'
 
   target 'FriendlyEatsTests' do
     inherit! :search_paths
