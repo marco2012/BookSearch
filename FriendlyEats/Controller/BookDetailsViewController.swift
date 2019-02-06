@@ -80,17 +80,20 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                     cell.view = UIImageView()
                     cell.contentView.addSubview(cell.view!)
                     
-
+                    cell.view!.image = UIImage.gifImageWithURL("https://www.fcnaustin.com/wp-content/uploads/2018/11/AppleLoading.gif") //loading indicator
                     cell.view!.transform = CGAffineTransform(rotationAngle: .pi/2)  //rotate image 90
-                    if let retrievedImage = UserDefaults.standard.object(forKey: self.book!.isbn)  {
-                        let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
-                        cell.view!.image = storedImage!
-                    } else {
-                        BackendAPI().getImage(isbn: self.book!.isbn) { (image) in
-                            let jpgImage = UIImageJPEGRepresentation(image, 0.3)
-                            UserDefaults.standard.set(jpgImage, forKey: self.book!.isbn)
-                            cell.view!.image = image
-                        }
+                    
+                    DispatchQueue.main.async {
+                        if let retrievedImage = UserDefaults.standard.object(forKey: self.book!.isbn)  {
+                            let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
+                            cell.view!.image = storedImage!
+                        } else {
+                                BackendAPI().getImage(isbn: self.book!.isbn) { (image) in
+                                    let jpgImage = UIImageJPEGRepresentation(image, 0.3)
+                                    UserDefaults.standard.set(jpgImage, forKey: self.book!.isbn)
+                                    cell.view!.image = image
+                                }
+                            }
                     }
                 
                     cell.view!.contentMode = UIViewContentMode.scaleAspectFit

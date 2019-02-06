@@ -28,12 +28,12 @@ class UserViewController: FormViewController {
     }
     
     func getPurchasedBooks(){
-        
-        BackendAPI().mybooks(user:(Auth.auth().currentUser?.email)!) {
-            (purchases) in
-            print(self.books_purchased_titles)
-            self.books_purchased_titles = purchases
-        }
+        DispatchQueue.main.async {
+            BackendAPI().mybooks(user:(Auth.auth().currentUser?.email)!) {
+                (purchases) in
+                print(self.books_purchased_titles)
+                self.books_purchased_titles = purchases
+            }
 //        if let decoded_purchased  = UserDefaults.standard.object(forKey: "books_purchased") as? Data {
 //            let books_purchased = NSKeyedUnarchiver.unarchiveObject(with: decoded_purchased) as! [Book]
 //            books_purchased_titles = books_purchased.map{$0.title}
@@ -64,6 +64,7 @@ class UserViewController: FormViewController {
 //
 //            }
 //        }
+        }
     }
     
     func setupForm(){

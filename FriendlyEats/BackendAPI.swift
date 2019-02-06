@@ -61,7 +61,8 @@ class BackendAPI {
     
     func sendImage(isbn: String, image:UIImage){
         
-        let imageData:Data = UIImagePNGRepresentation(image)!
+//        let imageData:Data = UIImagePNGRepresentation(image)!
+        let imageData:Data = UIImageJPEGRepresentation(image, 0.3)!
         let strBase64 = imageData.base64EncodedString(options: .endLineWithLineFeed)
         print(strBase64.prefix(20))
 

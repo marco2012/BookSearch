@@ -114,18 +114,6 @@ class BooksTableViewController: UIViewController, UITableViewDataSource, UITable
     activeFiltersStackView.isHidden = true
     
     self.tableView.register(FriendlyEats.RestaurantTableViewCell.self, forCellReuseIdentifier: "Cell")
-
-    //******TEST******
-//    BackendAPI().purchaseTEST()
-//    BackendAPI().uploadImage2(isbn: "123", userImage: UIImage(named: "book")!) {
-//        (result) in
-//        print(result)
-//    }
-//    BackendAPI().sendImage(isbn: "123", image: UIImage(named: "book")!)
-//    BackendAPI().getImage(isbn: "123 ") {
-//        (response) in
-//        print(response)
-//    }
     
   }
     
@@ -211,18 +199,21 @@ class RestaurantTableViewCell: UITableViewCell {
     starsView.rating = Int(book.rating.rounded())
     priceLabel.text = ""
     
+    self.thumbnailView.image = UIImage.gifImageWithURL("https://www.fcnaustin.com/wp-content/uploads/2018/11/AppleLoading.gif") //loading indicator
     self.thumbnailView.transform = CGAffineTransform(rotationAngle: .pi/2) //rotate image 90
-    if let retrievedImage = UserDefaults.standard.object(forKey: book.isbn)  {
-        let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
-        self.thumbnailView.image = storedImage!
-    } else {
-        BackendAPI().getImage(isbn: book.isbn) { (image) in
-            let jpgImage = UIImageJPEGRepresentation(image, 0.3)
-            UserDefaults.standard.set(jpgImage, forKey: book.isbn)
-            self.thumbnailView.image = image
+    
+        if let retrievedImage = UserDefaults.standard.object(forKey: book.isbn)  {
+            let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
+            self.thumbnailView.image = storedImage!
+        } else {
+             DispatchQueue.main.async {
+                BackendAPI().getImage(isbn: book.isbn) { (image) in
+                    let jpgImage = UIImageJPEGRepresentation(image, 0.3)
+                    UserDefaults.standard.set(jpgImage, forKey: book.isbn)
+                    self.thumbnailView.image = image
+                }
+            }
         }
-    }
-
     
   }
 

@@ -34,6 +34,7 @@
 		A96EECE12190901B0019D841 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96EECE02190901B0019D841 /* MapViewController.swift */; };
 		A9851D66218DA4AA00CEC73C /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9851D65218DA4AA00CEC73C /* UserViewController.swift */; };
 		A9851D68218DC1A700CEC73C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9851D67218DC1A700CEC73C /* Extensions.swift */; };
+		A99AFC86220B8F8E00BCF158 /* GIF-Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99AFC85220B8F8E00BCF158 /* GIF-Swift.swift */; };
 		A9A127922199EE770099976E /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A127912199EE770099976E /* ViewControllerUtils.swift */; };
 		A9A127942199F5EE0099976E /* TestAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A127932199F5EE0099976E /* TestAnnotationView.swift */; };
 		A9AC5711218B5E1A002B1075 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AC5710218B5E1A002B1075 /* Book.swift */; };
@@ -88,6 +89,7 @@
 		A96EECE02190901B0019D841 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		A9851D65218DA4AA00CEC73C /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		A9851D67218DC1A700CEC73C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A99AFC85220B8F8E00BCF158 /* GIF-Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIF-Swift.swift"; sourceTree = "<group>"; };
 		A9A127912199EE770099976E /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
 		A9A127932199F5EE0099976E /* TestAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnnotationView.swift; sourceTree = "<group>"; };
 		A9AC5710218B5E1A002B1075 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				A9851D67218DC1A700CEC73C /* Extensions.swift */,
 				A96EECDE21907D2F0019D841 /* GoogleAPI.swift */,
 				A9F21ACF2209D20B00E87A8C /* BackendAPI.swift */,
+				A99AFC85220B8F8E00BCF158 /* GIF-Swift.swift */,
 				A9AC5714218B7FD3002B1075 /* Controller */,
 				A9AC5712218B7FB0002B1075 /* Model */,
 				A9AC5713218B7FBD002B1075 /* View */,
@@ -478,6 +481,7 @@
 				A9851D66218DA4AA00CEC73C /* UserViewController.swift in Sources */,
 				A91F57042193236C0072EF85 /* GPTableViewCell.swift in Sources */,
 				8D5DF7021F7EF3BA00B0D24F /* NewReviewViewController.swift in Sources */,
+				A99AFC86220B8F8E00BCF158 /* GIF-Swift.swift in Sources */,
 				8DF1E3131EE5CFF900192CDE /* Restaurant.swift in Sources */,
 				A9851D68218DC1A700CEC73C /* Extensions.swift in Sources */,
 				A91F57052193236C0072EF85 /* GPCollectionViewCell.swift in Sources */,
