@@ -120,15 +120,12 @@ class UserViewController: FormViewController {
                         row.title = "Sign Out"
                         }
                         .onCellSelection { [weak self] (cell, row) in
-                            
                             ViewControllerUtils().showActivityIndicator(uiView: self!.view)
-                            
                             DispatchQueue.main.async {
                                 try? Auth.auth().signOut()
                                 ViewControllerUtils().hideActivityIndicator(uiView: self!.view)
                                 self!.present(FUIAuth.defaultAuthUI()!.authViewController(), animated: true, completion: nil)
                             }
-                            
                     }
                     
                     //Button to change password
@@ -141,6 +138,7 @@ class UserViewController: FormViewController {
                             Auth.auth().currentUser?.updatePassword(to: password!) { (error) in
                                 print(error)
                             }
+                            self!.alert(message: "", title: "Password changed")
                             
                     }
                     
@@ -149,13 +147,10 @@ class UserViewController: FormViewController {
                         row.title = "Forgot password"
                         }
                         .onCellSelection { [weak self] (cell, row) in
-                            
                             Auth.auth().currentUser?.sendEmailVerification { (error) in
                                 print(error)
                             }
-                            
                             self?.alert(title: "Email sent")
-                            
                     }
                     
                     //Button to delete account
@@ -180,7 +175,7 @@ class UserViewController: FormViewController {
                                             break
                                         }
                                     }
-                                    
+                                    self!.present(FUIAuth.defaultAuthUI()!.authViewController(), animated: true, completion: nil)
                                 }
                             }
                             

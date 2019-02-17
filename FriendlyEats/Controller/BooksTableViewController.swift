@@ -48,8 +48,6 @@ class BooksTableViewController: UIViewController, UITableViewDataSource, UITable
         
         let x = document.data()
         
-        //let y:[String:Any] = ["author": "Mark Levine", "isbn": 9781935098553, "publisher": "Hillcrest Publishing Group", "categories": "Language Arts & Disciplines", "rating": 4, "longitude": 0, "image_link": "http://books.google.com/books/content?id=3VVxfvCeaHYC&printsec=frontcover&img=1&zoom=1&source=gbs_api", "latitude": 0, "address": "Via Ariosto, Rome, Metropolitan City of Rome, Italy", "publishedDate": 2011-04-02, "sale": "NOT_FOR_SALE", "title": "The Fine Print of Self-Publishing", "pages": 274, "book_description": "Analyzes and critiques the contracts and services of the top self-publishing companies, and deciphers the law jargon used in self-publishing contracts.", "seller": "lollo@gmail.com"]
-        
         let book = Book(isbn: x["isbn"] as! String, title: x["title"] as! String, author: x["author"] as! String, book_description: x["book_description"] as! String, pages: x["pages"] as! Int, rating: x["rating"] as! Double, image_link: x["image_link"] as! String, publisher: x["publisher"] as! String, publishedDate: x["publishedDate"] as! String, categories: x["categories"] as! String, sale: x["sale"] as! String, address: x["address"] as? String, latitude: x["latitude"] as? Double, longitude: x["longitude"] as? Double, seller: x["seller"] as? String)
         
     
@@ -189,9 +187,7 @@ class RestaurantTableViewCell: UITableViewCell {
   @IBOutlet private var priceLabel: UILabel!
 
   func populate(book: Book) {
-
-    // Displaying data, part two
-
+    // Displaying data
     nameLabel.text = book.title
     cityLabel.text = "\(book.pages) pages"
     categoryLabel.text = book.author
@@ -200,7 +196,7 @@ class RestaurantTableViewCell: UITableViewCell {
     priceLabel.text = ""
     
     self.thumbnailView.image = UIImage.gifImageWithURL("https://www.fcnaustin.com/wp-content/uploads/2018/11/AppleLoading.gif") //loading indicator
-    self.thumbnailView.transform = CGAffineTransform(rotationAngle: .pi/2) //rotate image 90
+//    self.thumbnailView.transform = CGAffineTransform(rotationAngle: .pi/2) //rotate image 90
     
         if let retrievedImage = UserDefaults.standard.object(forKey: book.isbn)  {
             let storedImage = UIImage(data: (retrievedImage as! NSData) as Data)
@@ -214,7 +210,6 @@ class RestaurantTableViewCell: UITableViewCell {
                 }
             }
         }
-    
   }
 
   override func prepareForReuse() {

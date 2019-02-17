@@ -16,8 +16,7 @@ class BackendAPI {
     let user = "bookshare"
     let password = "martagermano"
     
-    
-    func purchase(book:Book){
+    func purchase(book:Book, seller:String){
         
 //        let credentialData = "\(user):\(password)".data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
 //        let base64Credentials = credentialData.base64EncodedString()
@@ -28,7 +27,7 @@ class BackendAPI {
 //        ]
         
         let parameters: Parameters = [
-            "email": book.seller!,
+            "email": seller,
             "title": book.title
         ]
         
@@ -62,7 +61,7 @@ class BackendAPI {
     func sendImage(isbn: String, image:UIImage){
         
 //        let imageData:Data = UIImagePNGRepresentation(image)!
-        let imageData:Data = UIImageJPEGRepresentation(image, 0.3)!
+        let imageData:Data = UIImageJPEGRepresentation(image, 0.2)!
         let strBase64 = imageData.base64EncodedString(options: .endLineWithLineFeed)
         print(strBase64.prefix(20))
 

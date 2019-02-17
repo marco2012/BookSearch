@@ -69,6 +69,7 @@ class MapViewController: UIViewController, ARDataSource {
         books = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [Book]
         
         print("BOOKS \(books)")
+        
         for book in books {
             
             getCoordinate(addressString: book.address!, completionHandler: {
@@ -77,7 +78,7 @@ class MapViewController: UIViewController, ARDataSource {
                 book.latitude = coordinates.latitude
                 book.longitude = coordinates.longitude
                 
-                // Creates a marker in the center of the map.
+                // Creates a marker
                 let marker = GMSMarker()
                 marker.position = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
                 marker.title = book.title
@@ -237,14 +238,14 @@ class MapViewController: UIViewController, ARDataSource {
         //random annotation
         srand48(2)
         //for i in stride(from: 0, to: count, by: 1){
+       
         for book in books{
-            let location = self.getRandomLocation(centerLatitude: centerLatitude, centerLongitude: centerLongitude, deltaLat: deltaLat, deltaLon: deltaLon, altitudeDelta: altitudeDelta)
-
+            let location = self.getRandomLocation(centerLatitude: centerLatitude, centerLongitude: centerLongitude,
+                                                  deltaLat: deltaLat, deltaLon: deltaLon, altitudeDelta: altitudeDelta)
             if let annotation = ARAnnotation(identifier: nil, title: book.title, location: location) {
                 annotations.append(annotation)
             }
         }
-    
         return annotations
     }
     

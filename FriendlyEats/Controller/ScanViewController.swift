@@ -124,7 +124,6 @@ BarcodeScannerCodeDelegate, BarcodeScannerDismissalDelegate, BarcodeScannerError
             
             <<< GooglePlacesTableRow() { row in
                 row.placeFilter?.type = .address    //suggest addresses
-                //row.title = "Location" // Adds a title to a row
                 row.placeholder = "Enter your location"
                 row.tag = "location" // Upon parsing a form you get a nice key if you use a tag
                 row.add(ruleSet: RuleSet<GooglePlace>()) // We can use GooglePlace() as a rule
@@ -133,7 +132,6 @@ BarcodeScannerCodeDelegate, BarcodeScannerDismissalDelegate, BarcodeScannerError
                 row.cell.textLabel?.numberOfLines = 0
                 }
                 .cellUpdate { cell, row in // Optional
-                    // Do something when cell updates
             }
             
             +++ Section()
@@ -242,13 +240,12 @@ BarcodeScannerCodeDelegate, BarcodeScannerDismissalDelegate, BarcodeScannerError
         
     }
     
+     //TODO check if book already exist by isbn
     private func saveBookToFirebase(book:Book) {
-        
         //Get remote collection
         let collection = Firestore.firestore().collection("books")
         
         //Save current book to collection
-        //TODO check if book already exist by isbn
         collection.addDocument(data: book.dictionary)
         
         ViewControllerUtils().hideActivityIndicator(uiView: self.view)

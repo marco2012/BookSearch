@@ -10,20 +10,15 @@ import Alamofire
 import SwiftyJSON
 
 func getBook(isbn: String, completionHandler: @escaping ((Book) -> Void)) {
-    
     let url = "https://www.googleapis.com/books/v1/volumes?q=isbn:\(isbn)"
-    
     // Fetch Request
     Alamofire.request(url, method: .get)
         .validate(statusCode: 200..<300)
         .responseJSON { response in
             if (response.result.error == nil) {
-                print("\(url)")
-                
                 let data = JSON(response.result.value!)
                 let array   = data["items"][0]
                 let volumeInfo = array["volumeInfo"]
-                
                 let title = volumeInfo["title"].stringValue
                 let authors = volumeInfo["authors"][0].stringValue
                 let publisher = volumeInfo["publisher"].stringValue
@@ -33,17 +28,14 @@ func getBook(isbn: String, completionHandler: @escaping ((Book) -> Void)) {
                 let categories = volumeInfo["categories"][0].stringValue
                 let averageRating = volumeInfo["averageRating"].doubleValue
                 let image = volumeInfo["imageLinks"]["thumbnail"].stringValue
-                
                 let saleInfo = array["saleInfo"]["saleability"].stringValue
-                
-                
+                //Book creation
                 let book = Book(isbn: isbn, title: title, author: authors, book_description: book_description, pages: pageCount, rating: averageRating, image_link: image, publisher: publisher, publishedDate: publishedDate, categories: categories, sale: saleInfo, address: nil, latitude: nil, longitude: nil, seller:nil)
                 
                 completionHandler(book) 
             }
             else {
                 debugPrint("HTTP Request failed: \(String(describing: response.result.error))")
-                
             }
     }
     

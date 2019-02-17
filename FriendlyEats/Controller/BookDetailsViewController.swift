@@ -65,7 +65,6 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                                 mail.mailComposeDelegate = self!
                                 mail.setToRecipients([self!.book!.seller!])
                                 mail.setSubject("Question about \(self!.book!.title)")
-                                //mail.setMessageBody("<p>Hello, I have a question about <i>\(self!.book!.title)</i> by  </p>", isHTML: true)
                                 self!.present(mail, animated: true)
                             }
                             
@@ -81,7 +80,7 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
                     cell.contentView.addSubview(cell.view!)
                     
                     cell.view!.image = UIImage.gifImageWithURL("https://www.fcnaustin.com/wp-content/uploads/2018/11/AppleLoading.gif") //loading indicator
-                    cell.view!.transform = CGAffineTransform(rotationAngle: .pi/2)  //rotate image 90
+//                    cell.view!.transform = CGAffineTransform(rotationAngle: .pi/2)  //rotate image 90
                     
                     DispatchQueue.main.async {
                         if let retrievedImage = UserDefaults.standard.object(forKey: self.book!.isbn)  {
@@ -224,9 +223,10 @@ class BookDetailsViewController: FormViewController, MFMailComposeViewController
 //                        userDefaults.synchronize()
                         
                         //BACKEND
-                        BackendAPI().purchase(book: self!.book!)
+                        BackendAPI().purchase(book: self!.book!, seller: (Auth.auth().currentUser?.email)!)
                         
                     }
+                    
                     
                     self!.alert(title: "Item Purchased")
                     
