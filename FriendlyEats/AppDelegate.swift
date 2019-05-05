@@ -29,8 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     FirebaseApp.configure()
     
     //maps
-    GMSServices.provideAPIKey("AIzaSyBUk8EzISX7cRF05orUf_VSdcfMGPKJs2U")
-    GMSPlacesClient.provideAPIKey("AIzaSyBUk8EzISX7cRF05orUf_VSdcfMGPKJs2U")
+    // ENTER KEYS HERE
+    GMSServices.provideAPIKey("")
+    GMSPlacesClient.provideAPIKey("")
     
     //quick actions
     // If launchOptions contains the appropriate launch options key, a Home screen quick action
