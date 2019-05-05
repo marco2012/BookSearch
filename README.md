@@ -3,7 +3,7 @@
 ### BookShare is born to let people sell and buy books in a fast and easy way. 
 
 <p align="center">
-  <img src="img/1.png" width="300" /> 
+  <img src="img/0.png" width="300" /> 
   <img src="img/2.png" width="300" />
   <img src="img/3.png" width="300" />
   <img src="img/4.png" width="300" />
